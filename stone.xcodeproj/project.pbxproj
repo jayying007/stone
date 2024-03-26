@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3F595E402BB1AAD10019C3F9 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F595E3F2BB1AAD10019C3F9 /* main.swift */; };
+		3F595E472BB1B5C40019C3F9 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F595E462BB1B5C40019C3F9 /* Lexer.swift */; };
+		3F595E492BB1BB860019C3F9 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F595E482BB1BB860019C3F9 /* Token.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +27,8 @@
 /* Begin PBXFileReference section */
 		3F595E3C2BB1AAD10019C3F9 /* stone */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = stone; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F595E3F2BB1AAD10019C3F9 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		3F595E462BB1B5C40019C3F9 /* Lexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
+		3F595E482BB1BB860019C3F9 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,8 @@
 			isa = PBXGroup;
 			children = (
 				3F595E3F2BB1AAD10019C3F9 /* main.swift */,
+				3F595E462BB1B5C40019C3F9 /* Lexer.swift */,
+				3F595E482BB1BB860019C3F9 /* Token.swift */,
 			);
 			path = stone;
 			sourceTree = "<group>";
@@ -120,6 +126,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F595E492BB1BB860019C3F9 /* Token.swift in Sources */,
+				3F595E472BB1B5C40019C3F9 /* Lexer.swift in Sources */,
 				3F595E402BB1AAD10019C3F9 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

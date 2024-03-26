@@ -7,5 +7,9 @@
 
 import Foundation
 
-print("Hello, World!")
+let filePath = CommandLine.arguments[1]
 
+let lexer = Lexer(filePath: filePath)
+while lexer.peek(i: 0).type != .EOF {
+    print(lexer.read().value)
+}
