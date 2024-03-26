@@ -9,6 +9,7 @@ import Foundation
 
 enum LexerError: Error {
     case UnknownCharacter(String)
+    case InvalidEscape(String)
 }
 
 class Lexer {
@@ -104,14 +105,31 @@ extension Lexer {
                 var target = ""
                 pos += 1
                 while pos < line.count {
-                    let nextIndex = line.index(line.startIndex, offsetBy: pos)
-                    let nextChar = line[nextIndex]
-                    if nextChar == "\"" && char != "\\" { // 解决转义字符
+                    var nextIndex = line.index(line.startIndex, offsetBy: pos)
+                    var nextChar = line[nextIndex]
+                    // 支持转义字符的解析
+                    if nextChar == "\\" {
+                        pos += 1
+                        nextIndex = line.index(line.startIndex, offsetBy: pos)
+                        nextChar = line[nextIndex]
+                        if nextChar == "n" {
+                            target.append("\n")
+                        } else if nextChar == "\\" {
+                            target.append("\\")
+                        } else if nextChar == "\"" {
+                            target.append("\"")
+                        } else {
+                            throw LexerError.InvalidEscape("Invalid escape sequence in literal: \\\(nextChar), line:\(lineNum)")
+                        }
+                        pos += 1
+                        continue
+                    }
+
+                    if nextChar == "\"" {
                         break
                     }
                     target.append(nextChar)
                     pos += 1
-                    char = nextChar
                 }
                 pos += 1
 
