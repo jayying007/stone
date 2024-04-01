@@ -20,6 +20,9 @@ enum TokenType {
 }
 
 class Token {
+
+    static var EOL = "\n"
+
     var type: TokenType
     var value: String
     // debug info

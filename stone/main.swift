@@ -10,6 +10,12 @@ import Foundation
 let filePath = CommandLine.arguments[1]
 
 let lexer = Lexer(filePath: filePath)
-while lexer.peek(i: 0).type != .EOF {
-    print(lexer.read().value)
+
+let parser = Parser(lexer: lexer)
+
+do {
+    let ast = try parser.ast()
+    print(ast)
+} catch {
+    print(error)
 }
