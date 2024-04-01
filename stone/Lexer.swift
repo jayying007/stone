@@ -64,8 +64,36 @@ extension Lexer {
             }
 
             if isSymbol(char: char) {
+                if char == "=" {
+                    let nextIndex = line.index(line.startIndex, offsetBy: pos + 1)
+                    let nextChar = line[nextIndex]
+                    if nextChar == "=" {
+                        queue.append(Token(type: .Symbol, value: "==", lineNum: lineNum))
+                        pos += 2
+                        continue
+                    }
+                }
+                if char == "&" {
+                    let nextIndex = line.index(line.startIndex, offsetBy: pos + 1)
+                    let nextChar = line[nextIndex]
+                    if nextChar == "&" {
+                        queue.append(Token(type: .Symbol, value: "&&", lineNum: lineNum))
+                        pos += 2
+                        continue
+                    }
+                }
+                if char == "|" {
+                    let nextIndex = line.index(line.startIndex, offsetBy: pos + 1)
+                    let nextChar = line[nextIndex]
+                    if nextChar == "|" {
+                        queue.append(Token(type: .Symbol, value: "||", lineNum: lineNum))
+                        pos += 2
+                        continue
+                    }
+                }
+
                 queue.append(Token(type: .Symbol, value: String(char), lineNum: lineNum))
-                pos+=1
+                pos += 1
                 continue
             }
 
@@ -75,6 +103,10 @@ extension Lexer {
                 repeat {
                     target.append(char)
                     pos += 1
+                    if pos >= line.count {
+                        break
+                    }
+
                     let nextIndex = line.index(line.startIndex, offsetBy: pos)
                     char = line[nextIndex]
                 } while (isDigit(char: char))
@@ -139,10 +171,11 @@ extension Lexer {
 
             throw LexerError.UnknownCharacter("unknown char \(char) in line \(lineNum)")
         }
+        queue.append(Token(type: .Identifier, value: Token.EOL, lineNum: lineNum))
     }
 
     func isSymbol(char: Character) -> Bool {
-        return "{}()[].,;+-*/%&|<>=".contains(char)
+        return "{}()[].,;+-*/%&|<>=!".contains(char)
     }
 
     func isDigit(char: Character) -> Bool {
