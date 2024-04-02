@@ -12,6 +12,8 @@ protocol ASTree {
     func child(_ i: Int) -> ASTree
 
     func numChildren() -> Int
+
+    func accept(_ visitor: Visitor) throws
 }
 
 class ASTLeaf: ASTree {
@@ -29,6 +31,8 @@ class ASTLeaf: ASTree {
     func numChildren() -> Int {
         return 0
     }
+
+    func accept(_ visitor: any Visitor) throws {}
 }
 
 class ASTList: ASTree {
@@ -45,5 +49,11 @@ class ASTList: ASTree {
 
     func numChildren() -> Int {
         return children.count
+    }
+
+    func accept(_ visitor: any Visitor) throws {
+        for child in children {
+            try child.accept(visitor)
+        }
     }
 }

@@ -20,4 +20,8 @@ class IfStmnt: ASTList {
     func elseBlock() -> ASTree? {
         return numChildren() > 2 ? child(2) : nil
     }
+
+    override func accept(_ visitor: Visitor) throws {
+        try visitor.visit(self)
+    }
 }

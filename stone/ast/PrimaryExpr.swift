@@ -8,5 +8,7 @@
 import Foundation
 
 class PrimaryExpr: ASTList {
-
+    override func accept(_ visitor: Visitor) throws {
+        try visitor.visit(self)
+    }
 }

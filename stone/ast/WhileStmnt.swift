@@ -16,4 +16,8 @@ class WhileStmnt: ASTList {
     func body() -> ASTree {
         return child(1)
     }
+
+    override func accept(_ visitor: Visitor) throws {
+        try visitor.visit(self)
+    }
 }

@@ -9,4 +9,11 @@ import Foundation
 
 class NumberLiteral: ASTLeaf {
 
+    func number() -> Int {
+        return Int(token.value) ?? 0
+    }
+
+    override func accept(_ visitor: Visitor) throws {
+        try visitor.visit(self)
+    }
 }

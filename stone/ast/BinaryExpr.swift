@@ -21,4 +21,8 @@ class BinaryExpr: ASTList {
     func right() -> ASTree {
         return child(2)
     }
+
+    override func accept(_ visitor: Visitor) throws {
+        try visitor.visit(self)
+    }
 }

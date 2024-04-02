@@ -7,15 +7,18 @@
 
 import Foundation
 
-let filePath = CommandLine.arguments[1]
-
-let lexer = Lexer(filePath: filePath)
-
-let parser = Parser(lexer: lexer)
-
 do {
+    let filePath = CommandLine.arguments[1]
+
+    let lexer = Lexer(filePath: filePath)
+
+    let parser = Parser(lexer: lexer)
+
     let ast = try parser.ast()
-    print(ast)
+
+    let evalVisitor = EvalVisitor()
+    try ast.accept(evalVisitor)
+    print(evalVisitor.result ?? 0)
 } catch {
     print(error)
 }

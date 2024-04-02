@@ -19,6 +19,9 @@
 		3F166D6C2BB31E0C00CAA3CB /* UnaryExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F166D6B2BB31E0C00CAA3CB /* UnaryExpr.swift */; };
 		3F166DCC2BB5CA6600CAA3CB /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F166DCB2BB5CA6600CAA3CB /* Parser.swift */; };
 		3F166DCE2BB7245600CAA3CB /* NullStmnt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F166DCD2BB7245600CAA3CB /* NullStmnt.swift */; };
+		3F166DD12BBC3FFE00CAA3CB /* Visitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F166DD02BBC3FFE00CAA3CB /* Visitor.swift */; };
+		3F166DD32BBC443500CAA3CB /* EvalVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F166DD22BBC443500CAA3CB /* EvalVisitor.swift */; };
+		3F166DD52BBC4DDA00CAA3CB /* EvalEnv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F166DD42BBC4DDA00CAA3CB /* EvalEnv.swift */; };
 		3F595E402BB1AAD10019C3F9 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F595E3F2BB1AAD10019C3F9 /* main.swift */; };
 		3F595E472BB1B5C40019C3F9 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F595E462BB1B5C40019C3F9 /* Lexer.swift */; };
 		3F595E492BB1BB860019C3F9 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F595E482BB1BB860019C3F9 /* Token.swift */; };
@@ -49,6 +52,9 @@
 		3F166D6B2BB31E0C00CAA3CB /* UnaryExpr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnaryExpr.swift; sourceTree = "<group>"; };
 		3F166DCB2BB5CA6600CAA3CB /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		3F166DCD2BB7245600CAA3CB /* NullStmnt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NullStmnt.swift; sourceTree = "<group>"; };
+		3F166DD02BBC3FFE00CAA3CB /* Visitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Visitor.swift; sourceTree = "<group>"; };
+		3F166DD22BBC443500CAA3CB /* EvalVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvalVisitor.swift; sourceTree = "<group>"; };
+		3F166DD42BBC4DDA00CAA3CB /* EvalEnv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvalEnv.swift; sourceTree = "<group>"; };
 		3F595E3C2BB1AAD10019C3F9 /* stone */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = stone; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F595E3F2BB1AAD10019C3F9 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3F595E462BB1B5C40019C3F9 /* Lexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
@@ -84,6 +90,16 @@
 			path = ast;
 			sourceTree = "<group>";
 		};
+		3F166DCF2BBC3FEE00CAA3CB /* visitor */ = {
+			isa = PBXGroup;
+			children = (
+				3F166DD02BBC3FFE00CAA3CB /* Visitor.swift */,
+				3F166DD22BBC443500CAA3CB /* EvalVisitor.swift */,
+				3F166DD42BBC4DDA00CAA3CB /* EvalEnv.swift */,
+			);
+			path = visitor;
+			sourceTree = "<group>";
+		};
 		3F595E332BB1AAD10019C3F9 = {
 			isa = PBXGroup;
 			children = (
@@ -103,6 +119,7 @@
 		3F595E3E2BB1AAD10019C3F9 /* stone */ = {
 			isa = PBXGroup;
 			children = (
+				3F166DCF2BBC3FEE00CAA3CB /* visitor */,
 				3F166D582BB3106400CAA3CB /* ast */,
 				3F595E3F2BB1AAD10019C3F9 /* main.swift */,
 				3F595E482BB1BB860019C3F9 /* Token.swift */,
@@ -178,6 +195,7 @@
 				3F166D662BB3155800CAA3CB /* IfStmnt.swift in Sources */,
 				3F166DCC2BB5CA6600CAA3CB /* Parser.swift in Sources */,
 				3F595E472BB1B5C40019C3F9 /* Lexer.swift in Sources */,
+				3F166DD12BBC3FFE00CAA3CB /* Visitor.swift in Sources */,
 				3F595E402BB1AAD10019C3F9 /* main.swift in Sources */,
 				3F166DCE2BB7245600CAA3CB /* NullStmnt.swift in Sources */,
 				3F166D6C2BB31E0C00CAA3CB /* UnaryExpr.swift in Sources */,
@@ -185,6 +203,8 @@
 				3F166D602BB3134700CAA3CB /* Name.swift in Sources */,
 				3F166D5C2BB312E100CAA3CB /* NumberLiteral.swift in Sources */,
 				3F166D622BB3135C00CAA3CB /* BinaryExpr.swift in Sources */,
+				3F166DD32BBC443500CAA3CB /* EvalVisitor.swift in Sources */,
+				3F166DD52BBC4DDA00CAA3CB /* EvalEnv.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,4 +9,11 @@ import Foundation
 
 class StringLiteral: ASTLeaf {
 
+    func string() -> String {
+        return token.value
+    }
+
+    override func accept(_ visitor: Visitor) throws {
+        try visitor.visit(self)
+    }
 }
