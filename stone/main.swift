@@ -18,7 +18,6 @@ do {
 
     let evalVisitor = EvalVisitor()
     try ast.accept(evalVisitor)
-    print(evalVisitor.result ?? 0)
 } catch {
     print(error)
 }

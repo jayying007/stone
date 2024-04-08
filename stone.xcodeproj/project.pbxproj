@@ -22,9 +22,14 @@
 		3F166DD12BBC3FFE00CAA3CB /* Visitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F166DD02BBC3FFE00CAA3CB /* Visitor.swift */; };
 		3F166DD32BBC443500CAA3CB /* EvalVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F166DD22BBC443500CAA3CB /* EvalVisitor.swift */; };
 		3F166DD52BBC4DDA00CAA3CB /* EvalEnv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F166DD42BBC4DDA00CAA3CB /* EvalEnv.swift */; };
+		3F166DD72BC2E2F500CAA3CB /* DefStmnt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F166DD62BC2E2F500CAA3CB /* DefStmnt.swift */; };
+		3F166DD92BC2E35000CAA3CB /* ParameterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F166DD82BC2E35000CAA3CB /* ParameterList.swift */; };
+		3F166DDB2BC2E45A00CAA3CB /* Postfix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F166DDA2BC2E45A00CAA3CB /* Postfix.swift */; };
+		3F166DDE2BC2F12D00CAA3CB /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F166DDD2BC2F12D00CAA3CB /* Function.swift */; };
 		3F595E402BB1AAD10019C3F9 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F595E3F2BB1AAD10019C3F9 /* main.swift */; };
 		3F595E472BB1B5C40019C3F9 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F595E462BB1B5C40019C3F9 /* Lexer.swift */; };
 		3F595E492BB1BB860019C3F9 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F595E482BB1BB860019C3F9 /* Token.swift */; };
+		3FFC2D2A2BC42B5900F735D4 /* NativeFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFC2D292BC42B5900F735D4 /* NativeFunction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,10 +60,15 @@
 		3F166DD02BBC3FFE00CAA3CB /* Visitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Visitor.swift; sourceTree = "<group>"; };
 		3F166DD22BBC443500CAA3CB /* EvalVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvalVisitor.swift; sourceTree = "<group>"; };
 		3F166DD42BBC4DDA00CAA3CB /* EvalEnv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvalEnv.swift; sourceTree = "<group>"; };
+		3F166DD62BC2E2F500CAA3CB /* DefStmnt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefStmnt.swift; sourceTree = "<group>"; };
+		3F166DD82BC2E35000CAA3CB /* ParameterList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterList.swift; sourceTree = "<group>"; };
+		3F166DDA2BC2E45A00CAA3CB /* Postfix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Postfix.swift; sourceTree = "<group>"; };
+		3F166DDD2BC2F12D00CAA3CB /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
 		3F595E3C2BB1AAD10019C3F9 /* stone */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = stone; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F595E3F2BB1AAD10019C3F9 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3F595E462BB1B5C40019C3F9 /* Lexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
 		3F595E482BB1BB860019C3F9 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		3FFC2D292BC42B5900F735D4 /* NativeFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeFunction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +96,9 @@
 				3F166D692BB315F600CAA3CB /* BlockStmnt.swift */,
 				3F166D6B2BB31E0C00CAA3CB /* UnaryExpr.swift */,
 				3F166DCD2BB7245600CAA3CB /* NullStmnt.swift */,
+				3F166DD62BC2E2F500CAA3CB /* DefStmnt.swift */,
+				3F166DD82BC2E35000CAA3CB /* ParameterList.swift */,
+				3F166DDA2BC2E45A00CAA3CB /* Postfix.swift */,
 			);
 			path = ast;
 			sourceTree = "<group>";
@@ -94,10 +107,19 @@
 			isa = PBXGroup;
 			children = (
 				3F166DD02BBC3FFE00CAA3CB /* Visitor.swift */,
-				3F166DD22BBC443500CAA3CB /* EvalVisitor.swift */,
-				3F166DD42BBC4DDA00CAA3CB /* EvalEnv.swift */,
 			);
 			path = visitor;
+			sourceTree = "<group>";
+		};
+		3F166DDC2BC2F11900CAA3CB /* eval */ = {
+			isa = PBXGroup;
+			children = (
+				3F166DD22BBC443500CAA3CB /* EvalVisitor.swift */,
+				3F166DD42BBC4DDA00CAA3CB /* EvalEnv.swift */,
+				3F166DDD2BC2F12D00CAA3CB /* Function.swift */,
+				3FFC2D292BC42B5900F735D4 /* NativeFunction.swift */,
+			);
+			path = eval;
 			sourceTree = "<group>";
 		};
 		3F595E332BB1AAD10019C3F9 = {
@@ -119,6 +141,7 @@
 		3F595E3E2BB1AAD10019C3F9 /* stone */ = {
 			isa = PBXGroup;
 			children = (
+				3F166DDC2BC2F11900CAA3CB /* eval */,
 				3F166DCF2BBC3FEE00CAA3CB /* visitor */,
 				3F166D582BB3106400CAA3CB /* ast */,
 				3F595E3F2BB1AAD10019C3F9 /* main.swift */,
@@ -202,9 +225,14 @@
 				3F166D5A2BB3107100CAA3CB /* ASTree.swift in Sources */,
 				3F166D602BB3134700CAA3CB /* Name.swift in Sources */,
 				3F166D5C2BB312E100CAA3CB /* NumberLiteral.swift in Sources */,
+				3F166DD92BC2E35000CAA3CB /* ParameterList.swift in Sources */,
 				3F166D622BB3135C00CAA3CB /* BinaryExpr.swift in Sources */,
 				3F166DD32BBC443500CAA3CB /* EvalVisitor.swift in Sources */,
+				3F166DD72BC2E2F500CAA3CB /* DefStmnt.swift in Sources */,
+				3F166DDB2BC2E45A00CAA3CB /* Postfix.swift in Sources */,
 				3F166DD52BBC4DDA00CAA3CB /* EvalEnv.swift in Sources */,
+				3FFC2D2A2BC42B5900F735D4 /* NativeFunction.swift in Sources */,
+				3F166DDE2BC2F12D00CAA3CB /* Function.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

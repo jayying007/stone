@@ -24,4 +24,8 @@ protocol Visitor {
     func visit(_ ifStmnt: IfStmnt) throws
 
     func visit(_ whileStmnt: WhileStmnt) throws
+
+    func visit(_ defStmnt: DefStmnt) throws
+
+    func visit(_ arguments: Arguments) throws
 }

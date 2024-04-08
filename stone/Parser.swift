@@ -58,19 +58,25 @@ class ParserDSL {
     static var unaryOps = [ "-", "!" ]
 
     static var expr0 = rule("expr")
+    static var args = rule(Arguments.self).ast(expr0).repeats(rule().sep(",").ast(expr0))
+    static var postfix = rule().sep("(").maybe(args).sep(")")
     static var primary = rule(PrimaryExpr.self).or(rule().sep("(").ast(expr0).sep(")"),
                                                    rule().number(cls: NumberLiteral.self),
                                                    rule().identifier(cls: Name.self),
-                                                   rule().string(cls: StringLiteral.self))
+                                                   rule().string(cls: StringLiteral.self)).repeats(postfix)
     static var factor = rule("factor").or(rule("UnaryExpr").unary(cls: UnaryExpr.self, subExpr: primary, operators: unaryOps), primary)
     static var expr = expr0.expression(cls: BinaryExpr.self, subExpr: factor, operators: binaryOps)
 
     static var statement0 = rule("statement")
     static var block = rule(BlockStmnt.self).sep("{").option(statement0).repeats(rule().sep(";", Token.EOL).option(statement0)).sep("}")
+    static var param = rule().identifier(cls: Name.self)
+    static var params = rule().ast(param).repeats(rule().sep(",").ast(param))
+    static var param_list = rule(ParameterList.self).sep("(").maybe(params).sep(")")
+    static var def = rule(DefStmnt.self).sep("def").identifier(cls: Name.self).ast(param_list).ast(block)
     static var statement = statement0.or(rule(IfStmnt.self).sep("if").ast(expr).ast(block).option(rule().sep("else").ast(block)),
                                          rule(WhileStmnt.self).sep("while").ast(expr).ast(block),
                                          expr)
-    static var program = rule("program").or(statement, rule(NullStmnt.self)).sep(";", Token.EOL)
+    static var program = rule("program").or(def, statement, rule(NullStmnt.self)).sep(";", Token.EOL)
     //
     var name: String?
     var elements = [Element]()
@@ -89,12 +95,22 @@ class ParserDSL {
             try element.parse(lexer: lexer, res: &astList)
         }
 
+        // expand astlist
+        if astList.count == 1 {
+            if type(of: astList[0]) == ASTList.self {
+                astList = (astList[0] as! ASTList).children
+            }
+        }
+
+        if cls is ASTList.Type {
+            return (cls as! ASTList.Type).init(children: astList)
+        }
         if astList.count == 0 {
             return nil
         } else if astList.count == 1 && (cls == nil || cls is ASTLeaf.Type) {
             return astList[0]
         } else {
-            return (cls as! ASTList.Type).init(children: astList)
+            return ASTList(children: astList)
         }
     }
 
@@ -136,6 +152,13 @@ class ParserDSL {
 
     func option(_ p: ParserDSL) -> ParserDSL {
         elements.append(Repeat(parser: p, onlyOnce: true))
+        return self
+    }
+    // 和option的区别是：即使解析结果为空，依然返回空的根节点
+    func maybe(_ p: ParserDSL) -> ParserDSL {
+        let p2 = ParserDSL(cls: p.cls)
+
+        elements.append(OrTree(parsers: [ p, p2 ]))
         return self
     }
 
