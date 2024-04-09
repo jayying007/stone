@@ -1,8 +1,9 @@
 
-stone是一门脚本语言。
+stone是一门简单的脚本语言。有以下特性：  
 - [x] 支持基本的控制语句（表达式、条件判断、循环等）
 - [x] 支持函数声明、调用
 - [x] 支持原生函数调用（目前支持：输出printf）
+- [x] 支持面向对象、单一继承 
 
 ## 语法定义
 
@@ -89,8 +90,41 @@ hanota(3, "A", "B", "C")
 // B --> C
 // A --> C
 ```
+### 示例4
+```
+class Array {
+   pointer = 0
+   index = 0
+   def init(count) {
+      pointer = array(count)
+   }
+   def add(value) {
+      arraySet(pointer, index, value)
+      index = index + 1
+   }
+   def get(index) {
+      arrayGet(pointer, index)
+   }
+}
 
-## 设计思想
+arr = Array.new
+arr.init(10)
+arr.add("J")
+arr.add("a")
+arr.add("y")
+
+name = arr.get(0) + arr.get(1) + arr.get(2)
+printf(name)
+// 输出
+// Jay
+```
+
+## 设计思路
 ### 面向对象
 首先需要有一个ClassInfo来存储类的相关信息。  
 接着在创建对象时，将ClassInfo的信息添加到这个对象的上下文中，函数也要绑定到对应的上下文。
+> 实际上这有些性能问题，但这是最简单的实现方式
+### 数组
+基于简单考虑，这里并没有添加数组下标的支持。  
+可以参考代码示例4的实现方式创建一个Array类，然后支持array,arrayGet,arraySet原生函数即可。
+> 同理可以实现所有的数据结构

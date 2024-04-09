@@ -23,6 +23,9 @@ class EvalVisitor: Visitor {
     init() {
         self.stack = [EvalEnv()]
         env.put(name: "printf", value: NativeFunction(selector: #selector(NativeFunction.c_print)))
+        env.put(name: "array", value: NativeFunction(selector: #selector(NativeFunction.c_array)))
+        env.put(name: "arrayGet", value: NativeFunction(selector: #selector(NativeFunction.c_get)))
+        env.put(name: "arraySet", value: NativeFunction(selector: #selector(NativeFunction.c_set)))
     }
 
     func visit(_ number: NumberLiteral) throws {
@@ -164,7 +167,6 @@ class EvalVisitor: Visitor {
                 args.append(result!)
             }
             result = function.invoke(args: args)
-
             return
         }
 
