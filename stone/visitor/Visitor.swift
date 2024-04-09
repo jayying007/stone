@@ -28,4 +28,8 @@ protocol Visitor {
     func visit(_ defStmnt: DefStmnt) throws
 
     func visit(_ arguments: Arguments) throws
+
+    func visit(_ classStmnt: ClassStmnt) throws
+
+    func visit(_ dot: Dot) throws
 }

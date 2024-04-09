@@ -59,7 +59,7 @@ class ParserDSL {
 
     static var expr0 = rule("expr")
     static var args = rule(Arguments.self).ast(expr0).repeats(rule().sep(",").ast(expr0))
-    static var postfix = rule().sep("(").maybe(args).sep(")")
+    static var postfix = rule().or(rule(Dot.self).sep(".").identifier(cls: Name.self), rule().sep("(").maybe(args).sep(")"))
     static var primary = rule(PrimaryExpr.self).or(rule().sep("(").ast(expr0).sep(")"),
                                                    rule().number(cls: NumberLiteral.self),
                                                    rule().identifier(cls: Name.self),
@@ -73,10 +73,13 @@ class ParserDSL {
     static var params = rule().ast(param).repeats(rule().sep(",").ast(param))
     static var param_list = rule(ParameterList.self).sep("(").maybe(params).sep(")")
     static var def = rule(DefStmnt.self).sep("def").identifier(cls: Name.self).ast(param_list).ast(block)
+    static var member = rule().or(def, expr)
+    static var class_body = rule(ClassBody.self).sep("{").option(member).repeats(rule().sep(";", Token.EOL).option(member)).sep("}")
+    static var defclass = rule(ClassStmnt.self).sep("class").identifier(cls: Name.self).option(rule().sep("extends").identifier(cls: Name.self)).ast(class_body)
     static var statement = statement0.or(rule(IfStmnt.self).sep("if").ast(expr).ast(block).option(rule().sep("else").ast(block)),
                                          rule(WhileStmnt.self).sep("while").ast(expr).ast(block),
                                          expr)
-    static var program = rule("program").or(def, statement, rule(NullStmnt.self)).sep(";", Token.EOL)
+    static var program = rule("program").or(defclass, def, statement, rule(NullStmnt.self)).sep(";", Token.EOL)
     //
     var name: String?
     var elements = [Element]()

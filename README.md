@@ -8,7 +8,7 @@ stone是一门脚本语言。
 
 ```text
     args       : expr { "," expr }
-    postfix    : "(" [ args ] ")"
+    postfix    : "." IDENTIFIER | "(" [ args ] ")"
     primary    : ("(" expr ")" | NUMBER | IDENTIFIER | STRING ) { postfix }
     factor     : [ OP ] primary
     expr       : factor { OP factor }
@@ -17,10 +17,13 @@ stone是一门脚本语言。
     params     : param { "," param }
     param_list : "(" [ params ] ")"
     def        : "def" IDENTIFIER param_list block
+    member     : def | expr
+    class_body : "{" [ member ] {("; " | EOL) [ member ]} "}"
+    defclass   : "class" IDENTIFIER [ "extends" IDENTIFIER ] class_body
     statement  : "if" expr block [ "else" block ]
                 | "while" expr block
                 | expr
-    program    : [ def | statement ] ("; " | EOL)
+    program    : [ defclass | def | statement ] ("; " | EOL)
 ```
 
 其中，  
@@ -86,3 +89,8 @@ hanota(3, "A", "B", "C")
 // B --> C
 // A --> C
 ```
+
+## 设计思想
+### 面向对象
+首先需要有一个ClassInfo来存储类的相关信息。  
+接着在创建对象时，将ClassInfo的信息添加到这个对象的上下文中，函数也要绑定到对应的上下文。

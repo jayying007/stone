@@ -29,7 +29,10 @@
 		3F595E402BB1AAD10019C3F9 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F595E3F2BB1AAD10019C3F9 /* main.swift */; };
 		3F595E472BB1B5C40019C3F9 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F595E462BB1B5C40019C3F9 /* Lexer.swift */; };
 		3F595E492BB1BB860019C3F9 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F595E482BB1BB860019C3F9 /* Token.swift */; };
+		3FEAB0142BC586CA00AEB81A /* StoneObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEAB0132BC586CA00AEB81A /* StoneObject.swift */; };
 		3FFC2D2A2BC42B5900F735D4 /* NativeFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFC2D292BC42B5900F735D4 /* NativeFunction.swift */; };
+		3FFC2D2C2BC445F900F735D4 /* ClassStmnt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFC2D2B2BC445F900F735D4 /* ClassStmnt.swift */; };
+		3FFC2D2E2BC44FAE00F735D4 /* ClassInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFC2D2D2BC44FAE00F735D4 /* ClassInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -68,7 +71,10 @@
 		3F595E3F2BB1AAD10019C3F9 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3F595E462BB1B5C40019C3F9 /* Lexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
 		3F595E482BB1BB860019C3F9 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		3FEAB0132BC586CA00AEB81A /* StoneObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoneObject.swift; sourceTree = "<group>"; };
 		3FFC2D292BC42B5900F735D4 /* NativeFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeFunction.swift; sourceTree = "<group>"; };
+		3FFC2D2B2BC445F900F735D4 /* ClassStmnt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassStmnt.swift; sourceTree = "<group>"; };
+		3FFC2D2D2BC44FAE00F735D4 /* ClassInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +105,7 @@
 				3F166DD62BC2E2F500CAA3CB /* DefStmnt.swift */,
 				3F166DD82BC2E35000CAA3CB /* ParameterList.swift */,
 				3F166DDA2BC2E45A00CAA3CB /* Postfix.swift */,
+				3FFC2D2B2BC445F900F735D4 /* ClassStmnt.swift */,
 			);
 			path = ast;
 			sourceTree = "<group>";
@@ -118,6 +125,8 @@
 				3F166DD42BBC4DDA00CAA3CB /* EvalEnv.swift */,
 				3F166DDD2BC2F12D00CAA3CB /* Function.swift */,
 				3FFC2D292BC42B5900F735D4 /* NativeFunction.swift */,
+				3FFC2D2D2BC44FAE00F735D4 /* ClassInfo.swift */,
+				3FEAB0132BC586CA00AEB81A /* StoneObject.swift */,
 			);
 			path = eval;
 			sourceTree = "<group>";
@@ -216,7 +225,9 @@
 				3F166D642BB3146D00CAA3CB /* PrimaryExpr.swift in Sources */,
 				3F595E492BB1BB860019C3F9 /* Token.swift in Sources */,
 				3F166D662BB3155800CAA3CB /* IfStmnt.swift in Sources */,
+				3FEAB0142BC586CA00AEB81A /* StoneObject.swift in Sources */,
 				3F166DCC2BB5CA6600CAA3CB /* Parser.swift in Sources */,
+				3FFC2D2C2BC445F900F735D4 /* ClassStmnt.swift in Sources */,
 				3F595E472BB1B5C40019C3F9 /* Lexer.swift in Sources */,
 				3F166DD12BBC3FFE00CAA3CB /* Visitor.swift in Sources */,
 				3F595E402BB1AAD10019C3F9 /* main.swift in Sources */,
@@ -226,6 +237,7 @@
 				3F166D602BB3134700CAA3CB /* Name.swift in Sources */,
 				3F166D5C2BB312E100CAA3CB /* NumberLiteral.swift in Sources */,
 				3F166DD92BC2E35000CAA3CB /* ParameterList.swift in Sources */,
+				3FFC2D2E2BC44FAE00F735D4 /* ClassInfo.swift in Sources */,
 				3F166D622BB3135C00CAA3CB /* BinaryExpr.swift in Sources */,
 				3F166DD32BBC443500CAA3CB /* EvalVisitor.swift in Sources */,
 				3F166DD72BC2E2F500CAA3CB /* DefStmnt.swift in Sources */,
@@ -361,7 +373,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 86JSFRSCH9;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -372,7 +384,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 86JSFRSCH9;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

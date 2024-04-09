@@ -10,9 +10,11 @@ import Foundation
 class Function {
     var parameters: ParameterList
     var body: BlockStmnt
+    var env: EvalEnv
 
-    init(parameters: ParameterList, body: BlockStmnt) {
+    init(parameters: ParameterList, body: BlockStmnt, env: EvalEnv) {
         self.parameters = parameters
         self.body = body
+        self.env = env
     }
 }
