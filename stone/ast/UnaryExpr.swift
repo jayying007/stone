@@ -9,11 +9,11 @@ import Foundation
 
 class UnaryExpr: ASTList {
 
-    func op() -> String {
+    var op: String {
         return (child(0) as! ASTLeaf).token.value
     }
 
-    func value() -> ASTree {
+    var value: ASTree {
         return child(1)
     }
 

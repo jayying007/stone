@@ -1,9 +1,16 @@
 
-stone是一门简单的脚本语言。有以下特性：  
+stone是一门简单的脚本语言，适合用来学习
+
+有以下特性：  
 - [x] 支持基本的控制语句（表达式、条件判断、循环等）
 - [x] 支持函数声明、调用
 - [x] 支持原生函数调用（目前支持：输出printf）
 - [x] 支持面向对象、单一继承 
+
+没有添加的：
+- [ ] 数组通过下标访问
+- [ ] 函数闭包
+- [ ] 优化变量/函数的访问
 
 ## 语法定义
 
@@ -118,6 +125,31 @@ printf(name)
 // 输出
 // Jay
 ```
+### 示例5
+```
+class Position {
+   x = y = 0
+   def move (nx, ny) {
+      x = nx; y = ny
+   }
+}
+class Pos3D extends Position {
+   z = 0
+   copy = Position.new   // 如果是Pos3D会翻车
+   def set (nx, ny, nz) {
+         this.move(nx, ny)
+         z = nz
+   }
+}
+p = Pos3D.new
+p.set(5, 6, 7)
+printf("x:" + p.x + " y:" + p.y + " z:" + p.z)
+p.copy.x = 10086
+printf(p.copy.x)
+// 输出
+// x:5 y:6 z:7
+// 10086
+```
 
 ## 设计思路
 ### 面向对象
@@ -128,3 +160,8 @@ printf(name)
 基于简单考虑，这里并没有添加数组下标的支持。  
 可以参考代码示例4的实现方式创建一个Array类，然后支持array,arrayGet,arraySet原生函数即可。
 > 同理可以实现所有的数据结构
+
+## 命令行构建
+```shell
+xcodebuild -project stone.xcodeproj -scheme stone -derivedDataPath output
+```

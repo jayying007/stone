@@ -15,15 +15,11 @@ enum LexerError: Error {
 class Lexer {
     var queue = [Token]()
 
-    init(filePath: String) {
-        do {
-            let data = try String(contentsOfFile: filePath, encoding: .utf8)
-            let lines = data.components(separatedBy: .newlines)
-            for (i, line) in lines.enumerated() {
-                try readTokens(from: line, lineNum: i + 1)
-            }
-        } catch {
-            print(error)
+    init(filePath: String) throws {
+        let content = try String(contentsOfFile: filePath, encoding: .utf8)
+        let lines = content.components(separatedBy: .newlines)
+        for (i, line) in lines.enumerated() {
+            try readTokens(from: line, lineNum: i + 1)
         }
     }
 
@@ -47,46 +43,26 @@ extension Lexer {
         // 有限状态机
         var pos = 0
         while pos < line.count {
-            let index = line.index(line.startIndex, offsetBy: pos)
-            var char = line[index]
-
+            var char = line.charAt(pos)
+            // 跳过空格
             if char == " " {
                 pos += 1
                 continue
             }
             // 单行注释
             if char == "/" {
-                let nextIndex = line.index(line.startIndex, offsetBy: pos)
-                let nextChar = line[nextIndex]
+                let nextChar = line.charAt(pos + 1)
                 if nextChar == "/" {
                     break
                 }
             }
 
-            if isSymbol(char: char) {
-                if char == "=" {
-                    let nextIndex = line.index(line.startIndex, offsetBy: pos + 1)
-                    let nextChar = line[nextIndex]
-                    if nextChar == "=" {
-                        queue.append(Token(type: .Symbol, value: "==", lineNum: lineNum))
-                        pos += 2
-                        continue
-                    }
-                }
-                if char == "&" {
-                    let nextIndex = line.index(line.startIndex, offsetBy: pos + 1)
-                    let nextChar = line[nextIndex]
-                    if nextChar == "&" {
-                        queue.append(Token(type: .Symbol, value: "&&", lineNum: lineNum))
-                        pos += 2
-                        continue
-                    }
-                }
-                if char == "|" {
-                    let nextIndex = line.index(line.startIndex, offsetBy: pos + 1)
-                    let nextChar = line[nextIndex]
-                    if nextChar == "|" {
-                        queue.append(Token(type: .Symbol, value: "||", lineNum: lineNum))
+            if char.isSymbol() {
+                if pos < line.count - 1 {
+                    let twoCharOp = [ "==", "!=", "&&", "||" ]
+                    let nextChar = line.charAt(pos + 1)
+                    if twoCharOp.contains("\(char)\(nextChar)") {
+                        queue.append(Token(type: .Symbol, value: "\(char)\(nextChar)", lineNum: lineNum))
                         pos += 2
                         continue
                     }
@@ -97,7 +73,7 @@ extension Lexer {
                 continue
             }
 
-            if isDigit(char: char) {
+            if char.isNumber {
                 var target = ""
 
                 repeat {
@@ -107,22 +83,20 @@ extension Lexer {
                         break
                     }
 
-                    let nextIndex = line.index(line.startIndex, offsetBy: pos)
-                    char = line[nextIndex]
-                } while (isDigit(char: char))
+                    char = line.charAt(pos)
+                } while (char.isNumber)
 
                 queue.append(Token(type: .Number, value: target, lineNum: lineNum))
                 continue
             }
 
-            if isLetter(char: char) {
+            if char.isLetter {
                 var target = String(char)
 
                 pos += 1
                 while pos < line.count {
-                    let nextIndex = line.index(line.startIndex, offsetBy: pos)
-                    let nextChar = line[nextIndex]
-                    if !isDigit(char: nextChar) && !isLetter(char: nextChar) {
+                    let nextChar = line.charAt(pos)
+                    if !nextChar.isNumber && !nextChar.isLetter {
                         break
                     }
                     target.append(nextChar)
@@ -137,13 +111,11 @@ extension Lexer {
                 var target = ""
                 pos += 1
                 while pos < line.count {
-                    var nextIndex = line.index(line.startIndex, offsetBy: pos)
-                    var nextChar = line[nextIndex]
+                    var nextChar = line.charAt(pos)
                     // 支持转义字符的解析
                     if nextChar == "\\" {
                         pos += 1
-                        nextIndex = line.index(line.startIndex, offsetBy: pos)
-                        nextChar = line[nextIndex]
+                        nextChar = line.charAt(pos)
                         if nextChar == "n" {
                             target.append("\n")
                         } else if nextChar == "\\" {
@@ -173,16 +145,17 @@ extension Lexer {
         }
         queue.append(Token(type: .Identifier, value: Token.EOL, lineNum: lineNum))
     }
+}
 
-    func isSymbol(char: Character) -> Bool {
-        return "{}()[].,;+-*/%&|<>=!".contains(char)
+extension String {
+    func charAt(_ index: Int) -> Character {
+        let idx = self.index(self.startIndex, offsetBy: index)
+        return self[idx]
     }
+}
 
-    func isDigit(char: Character) -> Bool {
-        return char >= "0" && char <= "9"
-    }
-
-    func isLetter(char: Character) -> Bool {
-        return (char >= "a" && char <= "z") || (char >= "A" && char <= "Z")
+extension Character {
+    func isSymbol() -> Bool {
+        return "{}()[].,;+-*/%&|<>=!".contains(self)
     }
 }

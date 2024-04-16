@@ -19,7 +19,7 @@ class Arguments: Postfix {
 }
 
 class Dot: Postfix {
-    func name() -> String {
+    var name: String {
         return (child(0) as! ASTLeaf).token.value
     }
 

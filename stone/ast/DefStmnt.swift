@@ -9,15 +9,15 @@ import Foundation
 
 class DefStmnt: ASTList {
 
-    func name() -> String {
+    var name: String {
         return (child(0) as! ASTLeaf).token.value
     }
 
-    func parameters() -> ParameterList {
+    var parameters: ParameterList {
         return child(1) as! ParameterList
     }
 
-    func body() -> BlockStmnt {
+    var body: BlockStmnt {
         return child(2) as! BlockStmnt
     }
 

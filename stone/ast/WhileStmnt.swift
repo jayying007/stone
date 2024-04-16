@@ -9,11 +9,11 @@ import Foundation
 
 class WhileStmnt: ASTList {
 
-    func condition() -> ASTree {
+    var condition: ASTree {
         return child(0)
     }
 
-    func body() -> ASTree {
+    var body: ASTree {
         return child(1)
     }
 

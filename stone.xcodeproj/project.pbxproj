@@ -21,7 +21,7 @@
 		3F166DCE2BB7245600CAA3CB /* NullStmnt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F166DCD2BB7245600CAA3CB /* NullStmnt.swift */; };
 		3F166DD12BBC3FFE00CAA3CB /* Visitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F166DD02BBC3FFE00CAA3CB /* Visitor.swift */; };
 		3F166DD32BBC443500CAA3CB /* EvalVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F166DD22BBC443500CAA3CB /* EvalVisitor.swift */; };
-		3F166DD52BBC4DDA00CAA3CB /* EvalEnv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F166DD42BBC4DDA00CAA3CB /* EvalEnv.swift */; };
+		3F166DD52BBC4DDA00CAA3CB /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F166DD42BBC4DDA00CAA3CB /* Environment.swift */; };
 		3F166DD72BC2E2F500CAA3CB /* DefStmnt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F166DD62BC2E2F500CAA3CB /* DefStmnt.swift */; };
 		3F166DD92BC2E35000CAA3CB /* ParameterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F166DD82BC2E35000CAA3CB /* ParameterList.swift */; };
 		3F166DDB2BC2E45A00CAA3CB /* Postfix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F166DDA2BC2E45A00CAA3CB /* Postfix.swift */; };
@@ -62,7 +62,7 @@
 		3F166DCD2BB7245600CAA3CB /* NullStmnt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NullStmnt.swift; sourceTree = "<group>"; };
 		3F166DD02BBC3FFE00CAA3CB /* Visitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Visitor.swift; sourceTree = "<group>"; };
 		3F166DD22BBC443500CAA3CB /* EvalVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvalVisitor.swift; sourceTree = "<group>"; };
-		3F166DD42BBC4DDA00CAA3CB /* EvalEnv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvalEnv.swift; sourceTree = "<group>"; };
+		3F166DD42BBC4DDA00CAA3CB /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		3F166DD62BC2E2F500CAA3CB /* DefStmnt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefStmnt.swift; sourceTree = "<group>"; };
 		3F166DD82BC2E35000CAA3CB /* ParameterList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterList.swift; sourceTree = "<group>"; };
 		3F166DDA2BC2E45A00CAA3CB /* Postfix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Postfix.swift; sourceTree = "<group>"; };
@@ -122,7 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				3F166DD22BBC443500CAA3CB /* EvalVisitor.swift */,
-				3F166DD42BBC4DDA00CAA3CB /* EvalEnv.swift */,
+				3F166DD42BBC4DDA00CAA3CB /* Environment.swift */,
 				3F166DDD2BC2F12D00CAA3CB /* Function.swift */,
 				3FFC2D292BC42B5900F735D4 /* NativeFunction.swift */,
 				3FFC2D2D2BC44FAE00F735D4 /* ClassInfo.swift */,
@@ -242,7 +242,7 @@
 				3F166DD32BBC443500CAA3CB /* EvalVisitor.swift in Sources */,
 				3F166DD72BC2E2F500CAA3CB /* DefStmnt.swift in Sources */,
 				3F166DDB2BC2E45A00CAA3CB /* Postfix.swift in Sources */,
-				3F166DD52BBC4DDA00CAA3CB /* EvalEnv.swift in Sources */,
+				3F166DD52BBC4DDA00CAA3CB /* Environment.swift in Sources */,
 				3FFC2D2A2BC42B5900F735D4 /* NativeFunction.swift in Sources */,
 				3F166DDE2BC2F12D00CAA3CB /* Function.swift in Sources */,
 			);

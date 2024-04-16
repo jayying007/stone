@@ -10,10 +10,9 @@ import Foundation
 do {
     let filePath = CommandLine.arguments[1]
 
-    let lexer = Lexer(filePath: filePath)
+    let lexer = try Lexer(filePath: filePath)
 
     let parser = Parser(lexer: lexer)
-
     let ast = try parser.ast()
 
     let evalVisitor = EvalVisitor()

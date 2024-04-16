@@ -9,7 +9,6 @@ import Foundation
 
 enum ParserError: Error {
     case Default(String)
-    case OrNotMatch(String)
     case UnExpectedToken(String)
     case TokenNotMatch(String)
 }
@@ -46,6 +45,7 @@ class ParserDSL {
         ops.add(name: "&&", prec: 1, leftAccoc: Operators.LEFT)
         ops.add(name: "||", prec: 1, leftAccoc: Operators.LEFT)
         ops.add(name: "==", prec: 2, leftAccoc: Operators.LEFT)
+        ops.add(name: "!=", prec: 2, leftAccoc: Operators.LEFT)
         ops.add(name: ">", prec: 2, leftAccoc: Operators.LEFT)
         ops.add(name: "<", prec: 2, leftAccoc: Operators.LEFT)
         ops.add(name: "+", prec: 3, leftAccoc: Operators.LEFT)
@@ -70,8 +70,7 @@ class ParserDSL {
     static var statement0 = rule("statement")
     static var block = rule(BlockStmnt.self).sep("{").option(statement0).repeats(rule().sep(";", Token.EOL).option(statement0)).sep("}")
     static var param = rule().identifier(cls: Name.self)
-    static var params = rule().ast(param).repeats(rule().sep(",").ast(param))
-    static var param_list = rule(ParameterList.self).sep("(").maybe(params).sep(")")
+    static var param_list = rule(ParameterList.self).sep("(").option(param).repeats(rule().sep(",").ast(param)).sep(")")
     static var def = rule(DefStmnt.self).sep("def").identifier(cls: Name.self).ast(param_list).ast(block)
     static var member = rule().or(def, expr)
     static var class_body = rule(ClassBody.self).sep("{").option(member).repeats(rule().sep(";", Token.EOL).option(member)).sep("}")
@@ -98,13 +97,6 @@ class ParserDSL {
             try element.parse(lexer: lexer, res: &astList)
         }
 
-        // expand astlist
-        if astList.count == 1 {
-            if type(of: astList[0]) == ASTList.self {
-                astList = (astList[0] as! ASTList).children
-            }
-        }
-
         if cls is ASTList.Type {
             return (cls as! ASTList.Type).init(children: astList)
         }
@@ -122,23 +114,15 @@ class ParserDSL {
         if elements.count == 0 {
             return true
         }
+        // 有点LL(1)的味道
         return elements[0].match(lexer: lexer)
     }
 
-    static func rule() -> ParserDSL {
-        return rule("", nil)
-    }
-
     static func rule(_ cls: ASTree.Type?) -> ParserDSL {
-        let parser = ParserDSL(name: nil, cls: cls)
-        return parser
+        return rule("", cls)
     }
 
-    static func rule(_ name: String) -> ParserDSL {
-        return rule(name, nil)
-    }
-
-    static func rule(_ name: String, _ cls: ASTree.Type?) -> ParserDSL {
+    static func rule(_ name: String = "", _ cls: ASTree.Type? = nil) -> ParserDSL {
         let parser = ParserDSL(name: name, cls: cls)
         return parser
     }
@@ -239,7 +223,7 @@ extension ParserDSL {
         func parse(lexer: Lexer, res: inout [any ASTree]) throws {
             let parser = findMatchedParser(lexer: lexer)
             if parser == nil {
-                throw ParserError.OrNotMatch("token:\(lexer.peek(i: 0)) don't match any option")
+                throw ParserError.Default("token:\(lexer.peek(i: 0)) don't match any option")
             } else {
                 if let ast = try parser!.parse(lexer: lexer) {
                     res.append(ast)

@@ -9,7 +9,7 @@ import Foundation
 
 class StringLiteral: ASTLeaf {
 
-    func string() -> String {
+    var string: String {
         return token.value
     }
 

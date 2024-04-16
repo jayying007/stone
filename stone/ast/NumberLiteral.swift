@@ -9,7 +9,7 @@ import Foundation
 
 class NumberLiteral: ASTLeaf {
 
-    func number() -> Int {
+    var number: Int {
         return Int(token.value) ?? 0
     }
 

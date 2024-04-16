@@ -7,11 +7,11 @@
 
 import Foundation
 
-class EvalEnv {
+class Environment {
     var values = [String: Any]()
-    var outer: EvalEnv?
+    var outer: Environment?
 
-    init(env: EvalEnv? = nil) {
+    init(env: Environment? = nil) {
         self.outer = env
     }
 
@@ -38,7 +38,7 @@ class EvalEnv {
         return outer?.get(name: name)
     }
 
-    func locate(name: String) -> EvalEnv? {
+    func locate(name: String) -> Environment? {
         if values[name] != nil {
             return self
         } else if outer == nil {

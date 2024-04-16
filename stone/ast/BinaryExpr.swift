@@ -9,16 +9,15 @@ import Foundation
 
 class BinaryExpr: ASTList {
 
-    func left() -> ASTree {
+    var left: ASTree {
         return child(0)
     }
 
-    func op() -> String {
+    var op: String {
         return (child(1) as! ASTLeaf).token.value
-
     }
 
-    func right() -> ASTree {
+    var right: ASTree {
         return child(2)
     }
 

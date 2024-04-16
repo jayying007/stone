@@ -8,18 +8,18 @@
 import Foundation
 
 class ClassStmnt: ASTList {
-    func name() -> String {
+    var name: String {
         return (child(0) as! ASTLeaf).token.value
     }
 
-    func superClass() -> String? {
+    var superClass: String? {
         if numChildren() < 3 {
             return nil
         }
         return (child(1) as! ASTLeaf).token.value
     }
 
-    func body() -> ClassBody {
+    var body: ClassBody {
         return (child(numChildren() - 1) as! ClassBody)
     }
 

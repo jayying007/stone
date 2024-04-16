@@ -12,9 +12,9 @@ enum StoneError: Error {
 }
 
 class StoneObject {
-    var env: EvalEnv
+    var env: Environment
 
-    init(env: EvalEnv) {
+    init(env: Environment) {
         self.env = env
     }
 
@@ -26,7 +26,7 @@ class StoneObject {
         try getEnv(member).putNew(name: member, value: value)
     }
 
-    func getEnv(_ member: String) throws -> EvalEnv {
+    func getEnv(_ member: String) throws -> Environment {
         let e = env.locate(name: member)
         if e != nil && e! === env {
             return e!

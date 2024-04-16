@@ -7,44 +7,48 @@
 
 import Foundation
 
-class NativeFunction: NSObject {
-    var selector: Selector
+class NativeFunction {
+    static var nativeMaps: [String: NativeFunction] = [ "print": NativeFunction_print(),
+                                                        "array": NativeFunction_array(),
+                                                        "arrayGet": NativeFunction_arrayGet(),
+                                                        "arraySet": NativeFunction_arraySet() ]
 
-    init(selector: Selector) {
-        self.selector = selector
+    static func find(_ name: String) -> NativeFunction {
+        return nativeMaps[name] ?? NativeFunction()
     }
 
     func invoke(args: [Any]) -> Any? {
-        if selector == #selector(c_print) {
-            print(args[0])
-        }
-        if selector == #selector(c_array) {
-            let arr = NSMutableArray()
-            for _ in 1...(args[0] as! Int) {
-                arr.add("")
-            }
-            return arr
-        }
-        if selector == #selector(c_get) {
-            let array = args[0] as! NSMutableArray
-            return array[args[1] as! Int]
-        }
-        if selector == #selector(c_set) {
-            let array = args[0] as! NSMutableArray
-            array[args[1] as! Int] = args[2]
-        }
         return nil
     }
+}
 
-    @objc func c_print(obj: Any) {
+class NativeFunction_print: NativeFunction {
+    override func invoke(args: [Any]) -> Any? {
+        print(args[0])
     }
+}
 
-    @objc func c_array(n: Int) {
+class NativeFunction_array: NativeFunction {
+    override func invoke(args: [Any]) -> Any? {
+        let arr = NSMutableArray()
+        for _ in 1...(args[0] as! Int) {
+            arr.add("")
+        }
+        return arr
     }
+}
 
-    @objc func c_get(array: [Any], index: Int) {
+class NativeFunction_arrayGet: NativeFunction {
+    override func invoke(args: [Any]) -> Any? {
+        let array = args[0] as! NSMutableArray
+        return array[args[1] as! Int]
     }
+}
 
-    @objc func c_set(array: [Any], index: Int, value: Any) {
+class NativeFunction_arraySet: NativeFunction {
+    override func invoke(args: [Any]) -> Any? {
+        let array = args[0] as! NSMutableArray
+        array[args[1] as! Int] = args[2]
+        return nil
     }
 }
